@@ -1,0 +1,60 @@
+class livro:
+    ct=0
+    @classmethod
+
+    def get_qtd_livro(cls):
+        return cls.ct
+    def __init__(self,titulo,autor,paginas,preco=0.0):
+        self.preco=preco
+        self.titulo=titulo
+        self.autor=autor
+        self.paginas=paginas
+        livro.ct+=1
+        #lis_livro.append(livro.ct)
+        lis_livro.append(self)
+    def get_paginas(self):
+        print(self.paginas)
+    def set_pagians(self,nova_paginas):
+        if nova_paginas<=0:
+            print("O livro nao pode ter menos que uma pagina")
+        else:
+            self.paginas=nova_paginas
+    def aumenta_preco(self,aumento):
+        self.preco=self.preco+aumento
+    def mostra_dados(self):
+        return f"Título: {self.titulo}, Autor: {self.autor}, Paginas: {self.paginas}, Preço: {self.preco} Reais"
+    def aumento_porcentagem(self,pct):
+        self.preco+=self.preco*(pct/100)
+    def __str__(self):
+         return f"Título: {self.titulo}, Autor: {self.autor}, Paginas: {self.paginas}, Preço: {self.preco} Reais"
+    def promocao(self,promo):
+        self.preco-=self.preco*(promo/100)
+    def mostra_lista(lista):
+        for i in lista:
+            print(lista.index(i)+1,i)
+            
+    
+
+if __name__ == '__main__':
+    lis_livro=[]
+    l1=livro("Thiago vênancio e sua autobiografia","Thiago Vênancio",450,325)
+    #print("Autor:",l1.autor,"Titulo:",l1.titulo,l1.paginas,"Paginas",l1.preco,"Reais")
+    l2=livro("LEGO Batman VS Caio Boudens - O despertar","Fernando Medeiros",524)
+    #print("Autor:",l2.autor,"Titulo:",l2.titulo,l2.paginas,"Paginas",l2.preco,"Reais")
+    #lis_livro.append(l1)
+    #lis_livro.append(l2)
+
+
+    #l1.set_pagians(250)
+    #l1.get_paginas()
+    #l2.set_pagians(0)
+    #l1.aumenta_preco(3)
+    #print("Novo preço do Livro 1:",l1.preco)
+    #print(l2.mostra_dados())
+    #l1.aumento_porcentagem(10)
+    #print(l1.preco)
+    #l1.promocao(10)
+    #print(l1.preco)
+    #print(livro.get_qtd_livro())
+    #print(l1)
+    #livro.mostra_lista(lis_livro)
