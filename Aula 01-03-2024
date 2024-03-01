@@ -1,0 +1,97 @@
+class Pessoa:
+    ct=0
+    @classmethod
+    def get_qtd_pessoa(cls):
+        return cls.ct
+
+    def __init__(self,nome="",dependente=0):
+        self.nome=nome
+        self.dependente=dependente
+        Pessoa.ct+=1
+
+    def get_nome(self):
+        print(self.nome)
+
+    def set_nome(self,novo_nome):
+        self.nome=novo_nome
+
+    def get_dependente(self):
+        print(self.dependente)
+
+    def set_dependente(self,novo_dependente):
+        if novo_dependente<0:
+            print("O número de dependentes não pode ser menor que zero")
+        else:
+            self.dependente=novo_dependente
+
+class Professor(Pessoa):
+    def __init__(self,nome="",dependente=0,qtd_turma=0,valorpturma=0):
+        super().__init__(nome,dependente)
+        self.qtd_turma=qtd_turma
+        self.valorpturma=valorpturma
+
+    def set_qtd_turma(self,novo_qtd):
+        if novo_qtd<0:
+            print("O professor não pode ter menos que 0 turmas")
+        else:
+            self.qtd_turma=novo_qtd
+
+    def rendimento(self):
+        return self.qtd_turma*self.valorpturma
+    
+    def salario_t(self):
+        print((self.set_qtd_turma*self.valorpturma) + (100 * self.dependente))
+    
+    def mostra_dados(self):
+        return f"Nome: {self.nome}, Dependentes: {self.dependente}, Quantidade de turmas: {self.qtd_turma}, Valor em reais por turma: {self.valorpturma}"
+    
+class Funcionario(Pessoa):
+    def __init__(self,nome="",dependente=0,salario_f=0):
+        super().__init__(nome,dependente)
+        self.salario_f=salario_f
+
+    
+    def get_salario_f(self):
+        print(self.salario_f)
+    
+    def set_salario_f(self,novo_salario):
+        if novo_salario<0:
+            print("O salário do funcionário deve ser maior que 0")
+        else:
+            self.salario_f=novo_salario
+
+    def salario_t(self):
+        print(self.salario_f + (100 * self.dependente))
+
+    def mostra_dados(self):
+        return f"Nome: {self.nome}, Dependentes: {self.dependente}, Salário fixo: {self.salario_f}"
+
+    def bonificação(self):
+        print(self.salario_t*1.1)
+
+if __name__ == '__main__':
+    
+    p1=Pessoa("Thiago Venancio",0)
+    print(p1)
+    prof1=Professor("Rei Julien",10000,5,1500)
+    print(prof1)
+    p1.set_nome("Frois Peek")
+    p1.get_nome()
+    prof1.get_nome()
+    prof1.set_dependente(-4)
+    prof2=Professor("Rammus vestido",1)
+    prof3=Professor()
+    prof4=Professor("Melman",qtd_turma=1)
+    func1=Funcionario("Pocahontas",1,300)
+    func2=Funcionario("Pato Donald",1)
+    func3=Funcionario()
+    func3.set_nome("Mario Brother")
+    func3.set_dependente(1)
+    func3.set_salario_f(850000)
+    func3.salario_t()
+    print(func1.mostra_dados())
+    print(prof1.mostra_dados())
+    print(Pessoa.get_qtd_pessoa())
+
+
+
