@@ -1,0 +1,71 @@
+import math
+from abc import ABC,abstractmethod
+
+class FormaGeometrica(ABC):
+    ct=0
+    @classmethod
+    def qtd_formas(cls):
+        return cls.ct
+
+    def __init__(self):
+        FormaGeometrica.ct+=1
+    @abstractmethod
+    def area(self):
+        ...
+    
+    @abstractmethod
+    def perimetro(self):
+        pass
+
+    def msg(self):
+        print("Fui chamado")
+        print("Chamado por:",self.__class__.__name__)
+
+class quadrado(FormaGeometrica):
+    def __init__(self,lado):
+        super().__init__()
+        self.lado=lado
+    
+    def area(self):
+        return pow(self.lado,2)
+    
+    def perimetro(self):
+        return self.lado*4
+    
+    def get_lado(self):
+        print(self.lado)
+    
+    def set_lado(self,novo_lado):
+        self.lado=novo_lado
+
+class circulo(FormaGeometrica):
+    def __init__(self,raio):
+        super().__init__()
+        self.raio=raio
+    
+    def get_raio(self):
+        print(self.raio)
+    
+    def set_raio(self,novo_raio):
+        self.raio=novo_raio
+    
+    def area(self):
+        return "{:.2f}".format(math.pi*pow(self.raio,2))
+    
+    def perimetro(self):
+        return "{:.2f}".format(2*math.pi*self.raio)
+    
+     
+if __name__=='__main__':
+    #obj_forma = FormaGeometrica()
+    #print(obj_forma)
+    q1=quadrado(5)
+    print(q1.perimetro(),q1.area())
+    q1.set_lado(10)
+    print(q1.lado)
+    c1=circulo(12)
+    print(c1.area(),c1.perimetro())
+    c1.set_raio(18)
+    c1.get_raio()
+    print(f"Foram criadas {FormaGeometrica.qtd_formas()} formas geometricas")
+    c1.msg()
