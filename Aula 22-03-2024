@@ -1,0 +1,107 @@
+class titular:
+    def __init__(self,cpf=0,nome='',sobrenome=""):
+        self.cpf=cpf
+        self.nome=nome
+        self.sobrenome=sobrenome
+    
+    def get_cpf(self):
+        return self.cpf
+    def set_cpf(self,novo_cpf):
+        self.cpf=novo_cpf
+
+    def get_nome(self):
+        return self.nome
+    def set_nome(self,novo_nome):
+        self.nome=novo_nome
+
+    def get_sobrenome(self):
+        return self.sobrenome
+    def set_sobrenome(self,novo_sobrenome):
+        self.sobrenome=novo_sobrenome
+
+    def nome_completo(self):
+        return f"{self.nome} {self.sobrenome}"
+
+class conta:
+    def __init__(self,numero,obj_titular,saldo,limite):
+        self.numero=numero
+        self.obj_titular=obj_titular
+        self.saldo=saldo
+        self.limite=limite
+    
+    def get_numero(self):
+        return self.numero
+    def set_numero(self,novo_numero):
+        self.numero=novo_numero
+
+    def get_obj_titular(self):
+        return self.obj_titular
+    def set_obj_titular(self,novo_obj_titular):
+        self.obj_titular=novo_obj_titular
+    
+    def get_saldo(self):
+        return self.saldo
+    def set_saldo(self,novo_saldo):
+        self.saldo=novo_saldo
+
+    def get_limite(self):
+        return self.limite
+    def set_limite(self,novo_limite):
+        self.limite=novo_limite
+
+    def extrato_reduzido(self):
+        return f"Número da conta:{self.numero} Saldo:{self.saldo}"
+    
+    def extrato_normal(self):
+        return (f"Nome:{self.get_obj_titular().get_nome()} - Sobrenome:{self.get_obj_titular().get_sobrenome()}\nCPF:{self.get_obj_titular().get_cpf()} - Número da conta:{self.numero} - Saldo da conta{self.saldo}")
+    
+    def todos_dados(self):
+        return (f"Nome:{self.get_obj_titular().get_nome()} - Sobrenome:{self.get_obj_titular().get_sobrenome()} - CPF:{self.get_obj_titular().get_cpf()}\nNúmero da conta:{self.numero} - Saldo da conta:{self.saldo} - Limite:{self.limite}")
+
+    def deposito(self,valor):
+        self.saldo=self.saldo+valor
+    def saque(self,valor):
+        if valor>self.saldo or valor>self.limite:
+            print("Deu nao fi")
+        else:
+            self.saldo=self.saldo-valor
+
+    def transferencia(self,valor,conta2):
+        if valor>self.saldo or valor>self.limite:
+            print("Deu nao fi")
+        else:
+            self.saldo-=valor
+            conta2.saldo+=valor
+
+    def aumento_pct(self,pct):
+        self.saldo+=self.saldo*pct
+
+
+
+
+if __name__=='__main__':
+    p1=titular()
+    p1.set_nome("Chico")
+    p1.set_sobrenome("Moedas")
+    p1.set_cpf(123456789)
+    print(p1.get_cpf(),p1.get_nome(),p1.get_sobrenome())
+    print(p1.nome_completo())
+
+    c1=conta(100001,p1,213545623,50000)
+    c2=conta(100002,p1,0,11)
+    print(p1)
+    print(c1)
+    print(c1.get_obj_titular().get_cpf(),c1.get_obj_titular().get_nome()
+          ,c1.get_obj_titular().get_sobrenome())
+    
+    c1.get_obj_titular().set_nome("Romero")
+    print(p1.get_nome())
+
+    print(c1.extrato_normal())
+
+    c1.deposito(5)
+    c1.saque(2)
+    print(c1.saldo)
+
+    
+    
