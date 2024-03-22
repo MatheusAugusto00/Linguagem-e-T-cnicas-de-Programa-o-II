@@ -61,13 +61,13 @@ class conta:
     def deposito(self,valor):
         self.saldo=self.saldo+valor
     def saque(self,valor):
-        if valor>self.saldo or valor>self.limite:
+        if valor>self.saldo+self.limite:
             print("Deu nao fi")
         else:
             self.saldo=self.saldo-valor
 
     def transferencia(self,valor,conta2):
-        if valor>self.saldo or valor>self.limite:
+        if valor>self.saldo+self.limite:
             print("Deu nao fi")
         else:
             self.saldo-=valor
