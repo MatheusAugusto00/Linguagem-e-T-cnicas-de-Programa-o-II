@@ -1,0 +1,61 @@
+'''
+import sqlite3
+from IPython.display import display
+import pandas as pd
+conexao = sqlite3.connect('livraria.db')
+cur = conexao.cursor()
+sql = "select * from tb_cliente"
+cur.execute(sql)
+l_registros = cur.fetchall()
+print(l_registros)
+cur.close()
+conexao.close()
+print("Fechou a base de dados")
+
+#df = pd.DataFrame(l_registros)
+#display(df)
+
+print("Consulta dados")
+for registros in l_registros:
+    print(registros)
+
+
+
+
+
+
+import sqlite3
+database = "livraria.db"
+conexao = sqlite3.connect(database)
+cur = conexao.cursor()
+sql = "Insert into tb_cliente(cpf, nome, idade) values('12', 'Oi', 2)"
+cur.execute(sql)
+conexao.commit()
+conexao.close()
+print("Fechou a base de dados")
+
+
+
+
+
+
+import sqlite3
+from IPython.display import display
+import pandas as pd
+conexao = sqlite3.connect('livraria.db')
+cur = conexao.cursor()
+sql = "select * from tb_cliente"
+cur.execute(sql)
+l_registros = cur.fetchall()
+print(l_registros)
+cur.close()
+conexao.close()
+print("Fechou a base de dados")
+
+#df = pd.DataFrame(l_registros)
+#display(df)
+
+print("Consulta dados")
+for registros in l_registros:
+    print(registros)
+'''
