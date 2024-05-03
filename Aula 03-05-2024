@@ -1,0 +1,30 @@
+import mysql.connector
+conexao = mysql.connector.connect(user='root',password='',host='127.0.0.1',database='db_loja_2')
+
+print('Conexão:\n',conexao)
+cursor = conexao.cursor()
+#sql = "CREATE DATABASE if not exists db_loja_2 "
+'''
+sql = CREATE TABLE IF NOT EXISTS tb_produtos(
+        idt INT NOT NULL AUTO_INCREMENT,
+        nome VARCHAR(80) NOT NULL,
+        preco DECIMAL(9,2) NULL,
+        data_vaL DATE NOT NULL,
+        PRIMARY KEY(idt)
+)
+'''
+
+
+'''sql = INSERT INTO tb_produtos(nome,preco,data_val)
+        VALUES('Leite',6.99,'2024-09-12')'''
+sql="select * from tb_produtos"
+cursor.execute(sql)
+l_registros = cursor.fetchall()
+print("Lista das tuplas")
+#print(l_registros)
+#conexao.commit()
+for i in l_registros:
+        print(i)
+cursor.close()
+conexao.close()
+print('\nConexão fechada')
