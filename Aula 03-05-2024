@@ -1,30 +1,75 @@
 import mysql.connector
-conexao = mysql.connector.connect(user='root',password='',host='127.0.0.1',database='db_loja_2')
+
+#Programa para criar a database
+
+conexao = mysql.connector.connect(user='root',password='ceub123456',host='127.0.0.1')
 
 print('Conexão:\n',conexao)
 cursor = conexao.cursor()
-#sql = "CREATE DATABASE if not exists db_loja_2 "
-'''
-sql = CREATE TABLE IF NOT EXISTS tb_produtos(
+
+sql = "CREATE DATABASE if not exists db_pessoa"
+cursor.execute(sql)
+cursor.close()
+conexao.close()
+print('\nConexão fechada')
+
+
+#Programa para criar a tabela
+
+conexao = mysql.connector.connect(user='root',password='ceub123456',host='127.0.0.1', database='db_pessoa')
+
+print('Conexão:\n',conexao)
+cursor = conexao.cursor()
+
+sql = '''CREATE TABLE IF NOT EXISTS tb_info(
         idt INT NOT NULL AUTO_INCREMENT,
         nome VARCHAR(80) NOT NULL,
-        preco DECIMAL(9,2) NULL,
-        data_vaL DATE NOT NULL,
-        PRIMARY KEY(idt)
-)
-'''
+        CPF VARCHAR(11) NOT NULL UNIQUE ,
+        data_nasc DATE NULL,
+        PRIMARY KEY(idt))'''
+        
+cursor.execute(sql)
+cursor.close()
+conexao.close()
+print('\nConexão fechada')
 
 
-'''sql = INSERT INTO tb_produtos(nome,preco,data_val)
-        VALUES('Leite',6.99,'2024-09-12')'''
-sql="select * from tb_produtos"
+
+#Programa para insert
+
+conexao = mysql.connector.connect(user='root',password='ceub123456',host='127.0.0.1', database='db_pessoa')
+
+print('Conexão:\n',conexao)
+x=input("Digite o nome: ")
+y=input("Digite o CPF: ")
+a,b,c=input("Digite a data de nascimento: ").split(" ")
+cursor = conexao.cursor()
+
+sql = f'''INSERT INTO tb_info(nome, CPF , data_nasc)
+        VALUES('{x}', '{y}', '{a}-{b}-{c}')'''
+        
+cursor.execute(sql)
+conexao.commit()
+cursor.close()
+conexao.close()
+print('\nConexão fechada')
+
+
+#Programa para printar as tuplas
+
+conexao = mysql.connector.connect(user='root',password='ceub123456',host='127.0.0.1', database='db_pessoa')
+print('Conexão:\n',conexao)
+cursor = conexao.cursor()
+sql="select * from tb_info"
 cursor.execute(sql)
 l_registros = cursor.fetchall()
 print("Lista das tuplas")
-#print(l_registros)
-#conexao.commit()
+
 for i in l_registros:
         print(i)
 cursor.close()
 conexao.close()
 print('\nConexão fechada')
+
+
+
