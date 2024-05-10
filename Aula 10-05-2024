@@ -1,1 +1,61 @@
+import mysql.connector
+
+def create_database(database_name):
+    conexao = mysql.connector.connect(user='root',password='',host='127.0.0.1')
+    cursor = conexao.cursor()
+    sql = f"CREATE DATABASE if not exists {database_name}"
+    cursor.execute(sql)
+    cursor.close()
+    conexao.close()
+
+def create_table(database_nome,table_name):
+    conexao = mysql.connector.connect(user='root',password='',host='127.0.0.1', database = database_nome)
+    cursor = conexao.cursor()
+    sql = f'''CREATE TABLE IF NOT EXISTS {table_name}(
+            idt INT NOT NULL AUTO_INCREMENT,
+            nome VARCHAR(80) NOT NULL,
+            CPF VARCHAR(11) NOT NULL UNIQUE ,
+            data_nasc DATE NULL,
+            PRIMARY KEY(idt))'''       
+    cursor.execute(sql)
+    cursor.close()
+    conexao.close()
+
+def insert(database_nome,table_name):
+    conexao = mysql.connector.connect(user='root',password='',host='127.0.0.1', database = database_nome)
+    x=input("Digite o nome: ")
+    y=input("Digite o CPF: ")
+    a,b,c=input("Digite a data de nascimento: ").split(" ")
+    cursor = conexao.cursor()
+    sql = f'''INSERT INTO {table_name} (nome, CPF , data_nasc)
+            VALUES('{x}', '{y}', '{a}-{b}-{c}')'''
+    cursor.execute(sql)
+    conexao.commit()
+    cursor.close()
+    conexao.close()
+
+def print_table(database_nome,table_name):
+    conexao = mysql.connector.connect(user='root',password='',host='127.0.0.1', database = database_nome)
+    cursor = conexao.cursor()
+    sql = f"select * from {table_name}"
+    cursor.execute(sql)
+    l_registros = cursor.fetchall()
+    print("Lista das tuplas")
+
+    for i in l_registros:
+            print(i)
+    cursor.close()
+    conexao.close()
+
+def main():
+    database_mundo = "db_mundo"
+    table_pessoa = "tb_pessoa"
+    create_database(database_mundo)
+    create_table(database_mundo,table_pessoa)
+    insert(database_mundo,table_pessoa)
+    print_table(database_mundo,table_pessoa)
+    
+
+if __name__=='__main__':
+    main()
 
