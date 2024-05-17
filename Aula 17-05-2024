@@ -1,0 +1,79 @@
+import mysql.connector
+
+
+def create_database():
+    conexao = mysql.connector.connect(user='root',password='',host='127.0.0.1')
+    print("Conexão feita:",conexao)
+    cursor = conexao.cursor()
+    sql="CREATE DATABASE if not exists db_cadastro"
+    cursor.execute(sql)
+    cursor.close()
+    conexao.close()
+    print("Conexão fechada")
+
+def create_connection():
+    con = mysql.connector.connect(user='root',password='',host='127.0.0.1',database='db_cadastro')
+    print("Conexão:",con)
+    return con
+
+def close_connection():
+    cursor.close()
+    conexao.close()
+    print("Conexão fechada")
+    
+def create_table():
+    sql_cargo = """CREATE TABLE IF NOT EXISTS tb_cargo(
+    idt int NOT NULL AUTO_INCREMENT,
+    nome varchar(45) UNIQUE NOT NULL,
+    PRIMARY KEY(idt)
+    )"""
+    cursor.execute(sql_cargo)
+
+    sql_empregado = '''CREATE TABLE IF NOT EXISTS tb_empregado(
+    idt int NOT NULL AUTO_INCREMENT,
+    nome varchar(45),
+    dta_nasc date NULL,
+    genero enum('M', 'F') NOT NULL,
+    cod_cargo int NOT NULL,
+    PRIMARY KEY(idt),
+    FOREIGN KEY(cod_cargo) REFERENCES tb_cargo(idt)
+    )'''
+    cursor.execute(sql_empregado)
+
+def insert_cargo():
+    a_nome = input("Nome do cargo: ")
+    sql=f"""insert into tb_cargo (nome)
+            values('{a_nome}')"""
+    cursor.execute(sql)
+    conexao.commit()
+
+def insert_empregado():
+    nome = input("Digite o nome: ")
+    ano = input("Ano do nascimento: ")
+    mes = input("Mês do nascimento: ")
+    dia = input("Dia do nascimento: ")
+    genero = input("Genero - (M,F): ")
+    cargo = int(input("Codigo do cargo: "))
+    sql=f"""insert into tb_empregado(nome,dta_nasc,genero,cod_cargo)
+            values('{nome}','{ano}-{mes}-{dia}','{genero}','{cargo}')"""
+    cursor.execute(sql)
+    conexao.commit()
+
+def print_empregado():
+    sql="select * from db_cadastro.tb_empregado"
+    cursor.execute(sql)
+    l_registros = cursor.fetchall()
+    for registro in l_registros:
+        print("Idt:",registro[0],"| Nome:",registro[1],"| Data de nascimento:",registro[2],"| Genero:",registro[3],"| Cargo:",registro[4])
+
+if __name__ == "__main__":
+    create_database()
+    conexao = create_connection()
+    cursor = conexao.cursor()
+    create_table()
+    insert_cargo()
+    insert_empregado()
+    print_empregado()
+
+    close_connection()
+
