@@ -1,0 +1,134 @@
+'''
+class FiguraGeometrica:
+    ct = 0
+
+    def __init__(self, cor):
+        self.cor = cor
+        FiguraGeometrica.ct += 1
+
+    def get_cor(self):
+        return self.cor
+
+    def contador(self):
+        print("Quantidade de objetos instanciados:", FiguraGeometrica.ct)
+
+
+class Retangulo(FiguraGeometrica):
+    def __init__(self, cor, base=0, altura=0):
+        super().__init__(cor)
+        self.base = base
+        self.altura = altura
+
+    def get_base(self):
+        return self.base
+
+    def set_altura(self, nova_altura):
+        self.altura = nova_altura
+
+    def area(self):
+        areaobj = self.base * self.altura
+        print("Área do objeto:", areaobj)
+        return areaobj
+
+    def mostra_dados(self):
+        print(f"\nCor: {self.cor}\nBase: {self.base}\nAltura: {self.altura}\n")
+
+
+
+class Circulo(FiguraGeometrica):
+    def __init__(self, cor, raio=0):
+        super().__init__(cor)
+        self.raio = raio
+
+    def set_raio(self, novo_raio):
+        if novo_raio <= 0:
+            print("Não é possível calcular raio com 0 ou valores negativos")
+        else:
+            self.raio = novo_raio
+
+    def perimetro(self):
+        perimetro = 2 * self.raio * 3.14
+        return perimetro
+
+
+if __name__ == '__main__':
+    ret1 = Retangulo("Amarelo", 4, 5)
+    print("Retângulo:\n")
+    ret1.mostra_dados()
+    ret1.area()
+    print("Base do Retângulo:", ret1.get_base())
+    print("Altura atualizada:")
+    ret1.set_altura(8)
+    ret1.mostra_dados()
+    ret1.area()
+    ret1.contador()
+
+    cir1 = Circulo("Roxo")
+    print("\nCor do Circulo:", cir1.get_cor())
+
+    cir2 = Circulo("Vermelho", 4)
+    print("\nPerímetro do Círculo:", cir2.perimetro())
+    cir2.set_raio(6)
+    print("\nPerímetro atualizado:", cir2.perimetro())
+    cir2.contador()
+
+'''
+
+import mysql.connector
+
+def create_database():
+    conexao_db = mysql.connector.connect(user='root', password='enzorenz123', host='127.0.0.1')
+    print('Conexão db:', conexao_db)
+    cursor_db = conexao_db.cursor()
+    sql = "CREATE DATABASE if not exists db_loja"
+    cursor_db.execute(sql)
+    cursor_db.close()
+    conexao_db.close()
+    print('\nConexão Fechada')
+
+def create_connection():
+    con = mysql.connector.connect(user='root', password='enzorenz123', host='127.0.0.1', database='db_loja')
+    print('Conexao:', con)
+    return con
+
+def close_connection():
+    cursor.close()
+    conexao.close()
+    print('Conexao Fechada')
+
+def create_table():
+    sql = """CREATE TABLE if not exists tb_veiculos(
+    placa INT NOT NULL,
+    nome VARCHAR(45) NOT NULL,
+    preco DECIMAL(10, 2),
+    PRIMARY KEY (placa)
+    ) """
+    cursor.execute(sql)
+
+def insert_table():
+    placa = int(input("Digite a placa de 4 números: "))
+    nome = input("Digite o nome do veículo: ")
+    preco = float(input("Digite o preço do veículo: "))
+    sql = f"""INSERT INTO tb_veiculos (placa, nome, preco)
+             VALUES ('{placa}', '{nome}', {preco})"""
+    cursor.execute(sql)
+    conexao.commit()
+
+if __name__ == "__main__":
+    
+    create_database()
+    conexao = create_connection()
+    cursor = conexao.cursor()
+    create_table()
+    insert_table()
+    close_connection()
+'''
+def print_professor():
+    print('- Consulta:')
+    sql="select * from db_faculdade.tb_professor"
+    cursor.execute(sql)
+    l_registros = cursor.fetchall()
+    for registro in l_registros:
+        print("Idt:",registro[0],"| Nome:",registro[1],"| Data de nascimento:",registro[2],"| Genero:",registro[3],"| Disciplina:",registro[4])
+'''
+
